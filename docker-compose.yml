@@ -12,7 +12,12 @@ services:
       - mysql_data:/var/lib/mysql
     networks:
       - app-go
-
+  user-backend:
+    image: golang:1
+    volumes:
+      - 
+    ports:
+      - "8080:8080"
 
 networks:
   app-go:
