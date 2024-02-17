@@ -1,8 +1,12 @@
 FROM golang:1
 
-COPY src/backend/user_api /go/user_api
-WORKDIR /go/user_api
+COPY src/backend /go/backend
+WORKDIR /go/backend
+
+RUN go mod tidy
 
 EXPOSE 8080
+
+WORKDIR /go/backend/user_api
 
 ENTRYPOINT [ "go", "run", "main.go" ]
