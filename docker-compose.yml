@@ -1,0 +1,38 @@
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: secret # ここにルートパスワードを設定してください
+      MYSQL_DATABASE: w_sns # 必要に応じてデータベース名を設定してください
+      MYSQL_USER: app # 必要に応じてユーザー名を設定してください
+      MYSQL_PASSWORD: password # 必要に応じてユーザーのパスワードを設定してください
+      TZ: Asia/Tokyo
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app-go
+
+  user-backend:
+    build:
+      context: .
+      dockerfile: ./docker/user_api/Dockerfile
+    volumes:
+      - ./src/backend:/go/backend:rw
+    ports:
+      - "8080:8080"
+    networks:
+      - app-go
+      - app-next
+    depends_on:
+      - db
+    environment:
+      TZ: Asia/Tokyo
+
+networks:
+  app-go:
+  app-next:
+
+volumes:
+  mysql_data:

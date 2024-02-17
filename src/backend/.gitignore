@@ -1,0 +1,37 @@
+# .env file.
+.env
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Project-local glide cache, RE: https://github.com/Masterminds/glide/issues/736
+.glide/
+
+# Go build cache
+build/
+
+# GoLand caches
+.idea/
+
+# VsCode settings
+.vscode/
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+# Error logs
+*.log
+
+# OS generated files
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
