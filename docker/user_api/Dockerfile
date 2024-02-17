@@ -1,12 +1,14 @@
 FROM golang:1
 
+RUN go install github.com/cosmtrek/air@latest
+
 COPY src/backend /go/backend
 WORKDIR /go/backend
 
-RUN go mod tidy
+RUN go mod download
 
 EXPOSE 8080
 
 WORKDIR /go/backend/user_api
 
-ENTRYPOINT [ "go", "run", "main.go" ]
+CMD ["air", "-c", ".air.toml"]
