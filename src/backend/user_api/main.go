@@ -36,4 +36,5 @@ func main() {
 
 	e.Logger.Fatal(e.Start(":8080"))
 	defer logFile.Close()
+	defer connector.Db.Close()
 }

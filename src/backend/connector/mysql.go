@@ -28,7 +28,6 @@ func Connect() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer Db.Close()
 
 	// データベース接続を確認
 	err = Db.Ping()
@@ -36,5 +35,5 @@ func Connect() {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Successfully connected to the database")
+	log.Println("Successfully connected to the database")
 }

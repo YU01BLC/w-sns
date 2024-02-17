@@ -58,6 +58,11 @@ func GetUsers() []User {
 		Name:  "Hanako Sato",
 		Email: "hanako@example.com",
 	}
-	users := []User{user1, user2}
+	user3 := User{
+		Id:    "67891",
+		Name:  "Test Sato",
+		Email: "test@example.com",
+	}
+	users := []User{user1, user2, user3}
 	return users
 }
