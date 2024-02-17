@@ -6,6 +6,7 @@ services:
       MYSQL_DATABASE: w_sns # 必要に応じてデータベース名を設定してください
       MYSQL_USER: app # 必要に応じてユーザー名を設定してください
       MYSQL_PASSWORD: password # 必要に応じてユーザーのパスワードを設定してください
+      TZ: Asia/Tokyo
     ports:
       - "3306:3306"
     volumes:
@@ -18,7 +19,7 @@ services:
       context: .
       dockerfile: ./docker/user_api/Dockerfile
     volumes:
-      - ./src/backend/user_api:/go/user_api:rw
+      - ./src/backend:/go/backend:rw
     ports:
       - "8080:8080"
     networks:
@@ -26,6 +27,8 @@ services:
       - app-next
     depends_on:
       - db
+    environment:
+      TZ: Asia/Tokyo
 
 networks:
   app-go:
