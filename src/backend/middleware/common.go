@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"io"
 	"os"
 
 	"github.com/YU01BLC/w-sns/src/backend/util"
@@ -19,7 +20,7 @@ func Use(e *echo.Echo) {
 	}))
 }
 
-func openFile() *os.File {
+func openFile() io.Writer {
 	file, ok := os.LookupEnv("LOG_FILEa")
 	if !ok {
 		file = "../log/access.log"
@@ -27,5 +28,6 @@ func openFile() *os.File {
 	util.CreateDir(file)
 	permission := 0644
 	writer := util.Openfile(file, permission)
-	return writer
+	mw := io.MultiWriter(os.Stdout, writer)
+	return mw
 }

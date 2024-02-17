@@ -1,6 +1,7 @@
 package logging
 
 import (
+	"io"
 	"os"
 	"strings"
 
@@ -41,7 +42,7 @@ func setLevel(level string, l *log.Logger) {
 	}
 }
 
-func openFile() *os.File {
+func openFile() io.Writer {
 	filePath, ok := os.LookupEnv("APP_LOG_FILE")
 	if !ok {
 		filePath = "../log/app.log"
@@ -49,5 +50,6 @@ func openFile() *os.File {
 	util.CreateDir(filePath)
 	permission := 0644
 	writer := util.Openfile(filePath, permission)
-	return writer
+	mw := io.MultiWriter(os.Stdout, writer)
+	return mw
 }
