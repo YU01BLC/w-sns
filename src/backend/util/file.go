@@ -5,6 +5,8 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+
+	"github.com/joho/godotenv"
 )
 
 func CreateDir(filePath string) {
@@ -26,4 +28,11 @@ func Openfile(file string, permission int) *os.File {
 		log.Fatalln("Do not open log file. ", file, err)
 	}
 	return writer
+}
+
+func OpenEnv(filename string) {
+	err := godotenv.Load(filename)
+	if err != nil {
+		log.Fatalln("Error loading .env")
+	}
 }

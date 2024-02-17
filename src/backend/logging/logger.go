@@ -21,7 +21,7 @@ func LoggerInit(e *echo.Echo) {
 	if l, ok := e.Logger.(*log.Logger); ok {
 		setLevel(logLevelStr, l)
 		l.SetOutput(openFile())
-		l.SetPrefix("${time_rfc3339_nano} ${file} ${line} [${level}]")
+		l.SetHeader("${time_rfc3339_nano} ${short_file} Line.${line} [${level}]")
 	}
 }
 

@@ -1,23 +1,19 @@
 package main
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/YU01BLC/w-sns/src/backend/connector"
 	"github.com/YU01BLC/w-sns/src/backend/logging"
 	"github.com/YU01BLC/w-sns/src/backend/middleware"
 	"github.com/YU01BLC/w-sns/src/backend/user_api/router"
-	"github.com/joho/godotenv"
+	"github.com/YU01BLC/w-sns/src/backend/util"
 	"github.com/labstack/echo/v4"
 )
 
 func init() {
 	filename := "../.env"
-	err := godotenv.Load(filename)
-	if err != nil {
-		log.Fatalln("Error loading .env")
-	}
+	util.OpenEnv(filename)
 }
 func main() {
 	// connect databases.
