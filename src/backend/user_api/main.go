@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/YU01BLC/w-sns/src/backend/connector"
+	"github.com/YU01BLC/w-sns/src/backend/logging"
 	"github.com/YU01BLC/w-sns/src/backend/middleware"
 	"github.com/YU01BLC/w-sns/src/backend/user_api/router"
 	"github.com/joho/godotenv"
@@ -25,6 +26,8 @@ func main() {
 	e := echo.New()
 	// set middleware
 	logFile := middleware.Use(e)
+	// init app logger
+	logging.LoggerInit(e)
 	// Init handler
 	e.GET("/", func(c echo.Context) error {
 		req := c.Request()

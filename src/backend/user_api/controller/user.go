@@ -8,6 +8,8 @@ import (
 )
 
 func GetUser(c echo.Context) error {
+	log := c.Logger()
 	users := model.GetUsers()
+	log.Infof("Get users: %v", users)
 	return c.JSON(http.StatusOK, users)
 }
