@@ -8,7 +8,7 @@ import (
 	mid "github.com/labstack/echo/v4/middleware"
 )
 
-func Use(e *echo.Echo) *os.File {
+func Use(e *echo.Echo) {
 	e.Use(mid.CSRF())
 
 	logFile := openFile()
@@ -17,7 +17,6 @@ func Use(e *echo.Echo) *os.File {
 		Format: format,
 		Output: logFile,
 	}))
-	return logFile
 }
 
 func openFile() *os.File {

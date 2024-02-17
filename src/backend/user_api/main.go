@@ -25,7 +25,7 @@ func main() {
 	// init echo
 	e := echo.New()
 	// set middleware
-	logFile := middleware.Use(e)
+	middleware.Use(e)
 	// init app logger
 	logging.LoggerInit(e)
 	// Init handler
@@ -38,6 +38,5 @@ func main() {
 	router.Routing(e)
 
 	e.Logger.Fatal(e.Start(":8080"))
-	defer logFile.Close()
 	defer connector.Db.Close()
 }
