@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/YU01BLC/w-sns/src/backend/connector"
-	"github.com/YU01BLC/w-sns/src/backend/model"
+	"github.com/YU01BLC/w-sns/src/backend/user_api/router"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 )
@@ -20,8 +20,6 @@ func init() {
 func main() {
 	// connect databases.
 	connector.Connect()
-	// FIXME: テスト用なので、後で削除
-	model.GetUsers()
 	// init echo
 	e := echo.New()
 
@@ -32,6 +30,7 @@ func main() {
 		c.Logger().Infof("Request URL: %s", url)
 		return c.String(http.StatusOK, "Hello World")
 	})
+	router.Routing(e)
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
