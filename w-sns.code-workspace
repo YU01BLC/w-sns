@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "src/backend/go-log"
+		}
+	],
+	"settings": {}
+}

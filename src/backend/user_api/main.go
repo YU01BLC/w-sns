@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"github.com/kynmh69/go-log"
 )
 
 func main() {
