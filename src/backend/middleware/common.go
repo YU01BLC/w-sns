@@ -1,16 +1,15 @@
 package middleware
 
 import (
-	"io/fs"
-	"log"
+	"io"
 	"os"
-	"path/filepath"
 
+	"github.com/YU01BLC/w-sns/src/backend/util"
 	"github.com/labstack/echo/v4"
 	mid "github.com/labstack/echo/v4/middleware"
 )
 
-func Use(e *echo.Echo) *os.File {
+func Use(e *echo.Echo) {
 	e.Use(mid.CSRF())
 
 	logFile := openFile()
@@ -19,32 +18,16 @@ func Use(e *echo.Echo) *os.File {
 		Format: format,
 		Output: logFile,
 	}))
-	return logFile
 }
 
-func openFile() *os.File {
+func openFile() io.Writer {
 	file, ok := os.LookupEnv("LOG_FILEa")
 	if !ok {
 		file = "../log/access.log"
 	}
-	createDir(file)
+	util.CreateDir(file)
 	permission := 0644
-	writer, err := os.OpenFile(file, os.O_CREATE|os.O_WRONLY|os.O_APPEND, fs.FileMode(permission))
-	if err != nil {
-		log.Fatalln("Do not open log file. ", file, err)
-	}
-	return writer
-}
-
-func createDir(filePath string) {
-	dirPath := filepath.Dir(filePath)
-	// ディレクトリの存在を確認
-	if _, err := os.Stat(dirPath); os.IsNotExist(err) {
-		// ディレクトリが存在しない場合は作成
-		err := os.MkdirAll(dirPath, 0755) // すべての親ディレクトリも含めて作成
-		if err != nil {
-			// エラー処理
-			log.Fatalln("Error creating directory:", err)
-		}
-	}
+	writer := util.Openfile(file, permission)
+	mw := io.MultiWriter(os.Stdout, writer)
+	return mw
 }
