@@ -22,9 +22,9 @@ func Use(e *echo.Echo) *os.File {
 func openFile() *os.File {
 	file, ok := os.LookupEnv("LOG_FILE")
 	if !ok {
-		file = "./log/access.log"
+		file = "../log/access.log"
 	}
-	permission := 0666
+	permission := 0644
 	writer, err := os.OpenFile(file, os.O_CREATE|os.O_WRONLY|os.O_APPEND, fs.FileMode(permission))
 	if err != nil {
 		log.Fatalln("Do not open log file. ", file, err)
