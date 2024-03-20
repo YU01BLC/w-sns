@@ -9,6 +9,9 @@ on:
   push:
     branches: 
       - "main"
+      - "release"
+      - "develop"
+      - "hotfix"
     # Publish semver tags as releases.
     tags: 
       - 'v*.*.*'
