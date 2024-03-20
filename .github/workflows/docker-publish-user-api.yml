@@ -27,15 +27,33 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
+  USER_API_DIR: ./src/backend/user_api
 
 
 jobs:
+
   test:
+
     runs-on: ubuntu-latest
     steps:
-    
+    - uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.22'
+
+    - name: Build
+      working-directory: ${{ env.USER_API_DIR }}
+      run: go build -v ./...
+
+    - name: Test
+      working-directory: ${{ env.USER_API_DIR }}
+      run: go test -v ./...
+
   build:
 
+    needs: test
     runs-on: ubuntu-latest
     permissions:
       contents: read
